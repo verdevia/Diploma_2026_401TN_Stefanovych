@@ -1,0 +1,195 @@
+#header {
+    width: 100vw;
+    min-height: 80px;
+    background-color: rgb(187, 252, 209);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.12);
+    position: fixed;
+    top: 0;
+    z-index: 500;
+    display: flex;
+    animation: header-enter var(--motion-medium) var(--motion-ease) both;
+}
+
+@keyframes header-enter {
+    from {
+        transform: translateY(-10px);
+    }
+
+    to {
+        transform: translateY(0);
+    }
+}
+
+#header #partcont {
+    min-width: 0;
+    display: flex;
+    flex: 1;
+    align-items: center;
+}
+
+#header #partcont.brand-slot {
+    justify-content: center;
+    color: #17341f;
+    font-size: 20px;
+}
+
+#header #partcont.header-actions {
+    justify-content: flex-end;
+    gap: 8px;
+    padding-right: 24px;
+}
+
+#header #partcont .nav {
+    min-width: 118px;
+    height: 100%;
+    min-height: 80px;
+    border: none;
+    background: none;
+    color: #132117;
+    cursor: pointer;
+    transition: background-color var(--motion-fast) ease, color var(--motion-fast) ease, transform var(--motion-fast) ease;
+    font-size: 18px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#header #partcont .nav.compact {
+    min-width: auto;
+    height: 44px;
+    min-height: 44px;
+    border-radius: 8px;
+    padding: 0 14px;
+}
+
+#header #partcont .nav.filled {
+    background: #196d3d;
+    color: #fff;
+}
+
+#header #partcont .nav #icon {
+    width: 38px;
+    height: 38px;
+    margin: 0;
+    object-fit: contain;
+    display: block;
+}
+
+#header #partcont .nav:hover {
+    background-color: rgba(0, 0, 0, 0.13);
+    transform: translateY(-1px);
+}
+
+#header #partcont .nav:active {
+    background-color: rgba(0, 0, 0, 0.22);
+    transform: translateY(0);
+}
+
+#header #partcont .nav.filled:hover {
+    background: #0f512c;
+}
+
+.user-pill {
+    max-width: 150px;
+    border: 1px solid rgba(21, 66, 37, 0.22);
+    border-radius: 999px;
+    padding: 8px 12px;
+    background: rgba(255, 255, 255, 0.46);
+    color: #17341f;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.greeting {
+    max-width: 190px;
+    min-width: 0;
+    color: #17341f;
+    font-size: 16px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+#header #partcont .nav.profile-link {
+    border: none;
+    background: none;
+}
+
+#header #partcont .nav.profile-link:hover {
+    background-color: rgba(0, 0, 0, 0.13);
+}
+
+#header #partcont .nav.profile-link:active {
+    background-color: rgba(0, 0, 0, 0.22);
+}
+
+#footer {
+    width: 100vw;
+    min-height: 80px;
+    background-color: rgb(187, 252, 209);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background-color var(--motion-fast) ease;
+}
+
+#footer p {
+    margin: 20px;
+    color: rgba(0, 0, 0, 0.68);
+    font-size: 15px;
+    text-align: center;
+}
+
+@media (max-width: 900px) {
+    #header {
+        min-height: 132px;
+        flex-wrap: wrap;
+    }
+
+    #header #partcont {
+        flex: 1 1 50%;
+    }
+
+    #header #partcont.brand-slot {
+        order: -1;
+        flex-basis: 100%;
+        min-height: 52px;
+    }
+
+    #header #partcont.header-actions {
+        padding: 8px;
+        justify-content: center;
+    }
+
+    #header #partcont .nav {
+        min-height: 64px;
+        font-size: 16px;
+    }
+
+    #header #partcont .nav.compact {
+        min-height: 40px;
+        height: 40px;
+    }
+}
+
+@media (max-width: 560px) {
+    #header #partcont {
+        flex-basis: 100%;
+        justify-content: center;
+    }
+
+    #header #partcont .nav {
+        min-width: 0;
+        flex: 1;
+    }
+
+    .user-pill {
+        max-width: 120px;
+    }
+
+    .greeting {
+        display: none;
+    }
+}
