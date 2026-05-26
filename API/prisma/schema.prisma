@@ -1,0 +1,98 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  user_id         Int       @id @default(autoincrement())
+  username        String    @unique
+  email           String    @unique
+  password_hash   String
+  role            Role      @default(user)
+  created_at      DateTime  @default(now())
+  
+  ads             Ad[]      @relation("UserAds")
+  sentMessages    Message[] @relation("SentMessages")
+  receivedMessages Message[] @relation("ReceivedMessages")
+  reviewsGiven    Review[]  @relation("Reviewer")
+  reviewsReceived Review[]  @relation("ReviewedUser")
+  favorites       Favorite[]
+}
+
+model Category {
+  category_id Int    @id @default(autoincrement())
+  name        String @unique
+  ads         Ad[]
+}
+
+model Ad {
+  ad_id       Int       @id @default(autoincrement())
+  user_id     Int
+  category_id Int?
+  title       String
+  description String?
+  image_url   String?   @db.LongText
+  price       Float
+  status      AdStatus @default(pending)
+  created_at  DateTime  @default(now())
+
+  user        User      @relation(fields: [user_id], references: [user_id], name: "UserAds")
+  category    Category? @relation(fields: [category_id], references: [category_id])
+  messages    Message[]
+  favorites   Favorite[]
+  reviews     Review[]
+}
+
+model Message {
+  message_id  Int      @id @default(autoincrement())
+  sender_id   Int
+  receiver_id Int
+  ad_id       Int
+  content     String
+  sent_at     DateTime @default(now())
+
+  sender      User     @relation(fields: [sender_id], references: [user_id], name: "SentMessages")
+  receiver    User     @relation(fields: [receiver_id], references: [user_id], name: "ReceivedMessages")
+  ad          Ad       @relation(fields: [ad_id], references: [ad_id])
+}
+
+model Review {
+  review_id        Int      @id @default(autoincrement())
+  reviewer_id      Int
+  reviewed_user_id Int
+  ad_id            Int?
+  rating           Int
+  comment          String?
+  created_at       DateTime @default(now())
+
+  reviewer         User     @relation(fields: [reviewer_id], references: [user_id], name: "Reviewer")
+  reviewedUser     User     @relation(fields: [reviewed_user_id], references: [user_id], name: "ReviewedUser")
+  ad               Ad?      @relation(fields: [ad_id], references: [ad_id])
+}
+
+model Favorite {
+  user_id Int
+  ad_id   Int
+
+  user    User @relation(fields: [user_id], references: [user_id])
+  ad      Ad   @relation(fields: [ad_id], references: [ad_id])
+
+  @@id([user_id, ad_id])
+}
+
+enum Role {
+  user
+  moderator
+  admin
+}
+
+enum AdStatus {
+  pending
+  active
+  sold
+  removed
+}
