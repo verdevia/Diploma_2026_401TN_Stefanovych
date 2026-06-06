@@ -20,6 +20,13 @@ const swaggerSpec = require("./config/swagger");
 app.use(cors());
 app.use(express.json({ limit: "5mb" }));
 
+app.get("/", (req, res) => {
+  res.json({
+    status: "ok",
+    service: "c2c-marketplace-api",
+  });
+});
+
 // Routing
 app.use("/api/auth", authController);
 app.use("/api/users", userController);
