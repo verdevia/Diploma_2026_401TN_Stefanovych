@@ -176,7 +176,6 @@ export default function Market({ session, onOpenAuth, onOpenChats }) {
                 <section className="market-hero">
                     <div>
                         <h1>Маркет</h1>
-                        <p>Оголошення користувачів із живими чатами та обраним.</p>
                     </div>
                     <button className="btn primary" onClick={openCreateForm}>
                         Додати оголошення
